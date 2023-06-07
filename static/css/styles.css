@@ -1,0 +1,22 @@
+header {
+    padding:  20px 0;
+    background-color: #ABEBC6;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: #186A3B;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+header nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #186A3B;
+    margin-left: 10px;
+}
+
+header nav a:hover{
+    color: #1D8348;
+}

@@ -1,0 +1,60 @@
+{{ template "base" . }}
+
+{{ define "title" }} RPS web - Jugar {{ end }}
+
+{{ define "content" }}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col py-5 text-center">
+                <h2>{{ .Name }}</h2>
+                <p class="fw-bold" id="player_score">0</p>
+                <div class="d-grid gap-2 card p-3">
+                    <button class="btn btn-outline-success" onclick="choose(0);">
+                        <img src="static/img/hand_rock.png" alt="hand_rock" width="50" class="img-fluid">
+                        <span class="fw-bold">Piedra</span>
+                    </button>
+                    <button class="btn btn-outline-success" onclick="choose(1);">
+                        <img src="static/img/hand_paper.png" alt="hand_rock" width="50" class="img-fluid">
+                        <span class="fw-bold">Papel</span>
+                    </button>
+                    <button class="btn btn-outline-success" onclick="choose(2);">
+                        <img src="static/img/hand_scissors.png" alt="hand_rock" width="50" class="img-fluid">
+                        <span class="fw-bold">Tijera</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col py-5 text-center">
+                <h2>Computadora</h2>
+                <p class="fw-bold" id="computer_score">0</p>
+                <div class="card p-3">
+                    <div class="d-flex justify-content-center">
+                        <img src="static/img/reload_icon.png" id="img_computer" alt="reload_icon" width="200" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>Resultados</h2>
+            <ul class="list-group list-group-flush"> 
+                <li class="list-group-item" id="player_choice">&nbsp;</li>
+                <li class="list-group-item" id="computer_choice">&nbsp;</li>
+                <li class="list-group-item text-danger" id="round_result">&nbsp;</li>
+                <li class="list-group-item text-success" id="round_message">&nbsp;</li>
+            </ul>
+        </div>
+        <div class="row text-center">
+            <div class="col py-3">
+                <a href="/new" class="btn btn-success btn-lg">Nuevo juego</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ end }}
