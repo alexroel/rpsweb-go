@@ -9,27 +9,27 @@ import (
 	"strconv"
 )
 
-const (
-	templateDir  = "templates/"
-	templateBase = templateDir + "base.html"
-)
-
+// Structura para jugador
 type Player struct {
 	Name string
 }
 
+// Creando jugador
 var player Player
 
-func Index(w http.ResponseWriter, r *http.Request) {
+// Controlador de inicio
+func Home(w http.ResponseWriter, r *http.Request) {
 	restartValue()
-	renderTemplate(w, "index.html", nil)
+	renderTemplate(w, "home.html", nil)
 }
 
+// Controlador de nuevo juego
 func NewGame(w http.ResponseWriter, r *http.Request) {
 	restartValue()
 	renderTemplate(w, "new-game.html", nil)
 }
 
+// Controlador de juego
 func Game(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
@@ -51,6 +51,7 @@ func Game(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "game.html", player)
 }
 
+// Controlador de jugar
 func Play(w http.ResponseWriter, r *http.Request) {
 	playerChoice, _ := strconv.Atoi(r.URL.Query().Get("c"))
 	result := rps.PlayRound(playerChoice)
@@ -64,19 +65,37 @@ func Play(w http.ResponseWriter, r *http.Request) {
 	w.Write(out)
 }
 
+// Controlador de about
 func About(w http.ResponseWriter, r *http.Request) {
 	restartValue()
 	renderTemplate(w, "about.html", nil)
 }
 
-func renderTemplate(w http.ResponseWriter, page string, data any) {
-	tpl := template.Must(template.ParseFiles(templateBase, templateDir+page))
+// Manejo de páginas de error
+var errorTemplates = template.Must(template.ParseGlob("templates/**/*.html"))
 
-	err := tpl.ExecuteTemplate(w, "base", data)
+func handlerError(w http.ResponseWriter, name string, status int) {
+	w.WriteHeader(status)
+	errorTemplates.ExecuteTemplate(w, name, nil)
+}
+
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+	// Devolver un error personalizado para páginas no encontradas
+	handlerError(w, "404", http.StatusNotFound)
+}
+
+// Renderizar plantillas HTML
+const baseDir = "templates/"
+
+func renderTemplate(w http.ResponseWriter, name string, data any) {
+	templates := template.Must(template.ParseFiles(baseDir+"base.html", baseDir+name))
+	// Encabezado
+	w.Header().Set("Content-Type", "text/html")
+
+	// Renderizar la plantilla en la respuesta
+	err := templates.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		http.Error(w, "Error al renderizar la plantilla", http.StatusInternalServerError)
-		log.Println(err)
-		return
+		handlerError(w, "500", http.StatusInternalServerError)
 	}
 }
 

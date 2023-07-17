@@ -1,0 +1,34 @@
+{{ define "title" }} RPS web - Inicio {{ end }}
+
+{{ define "content" }}
+
+<section class="container py-5">
+    <h1 class="display-4 fw-bold py-3 text-center">Bienvenido a Piedra, Papel o Tijera</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="static/img/rock_icon.png" alt="rock_icon" class="img-fluid">
+        </div>
+        <div class="col-md-4">
+            <img src="static/img/paper_icon.png" alt="rock_icon" class="img-fluid">
+        </div>
+        <div class="col-md-4">
+            <img src="static/img/scissors_icon.png" alt="rock_icon" class="img-fluid">
+        </div>
+    </div>
+    <p class="lead text-center fs-2 py-4">Juega contra la computadora</p>
+    <p class="text-center">
+        <a href="/new" class="btn btn-success btn-lg">Nuevo juego</a>
+    </p>
+</section>
+
+<section class="container py-5">
+    <h2 class="mb-4">¿Cómo se juega?</h2>
+    <ol >
+    <ol class="list-group list-group-numbered">
+        <li class="list-group-item">Crear un juego nuevo.</li>
+        <li class="list-group-item">Ingrese su nombre.</li>
+        <li class="list-group-item">Empiece a jugar.</li>
+    </ol>
+</section>
+
+{{ end }}
